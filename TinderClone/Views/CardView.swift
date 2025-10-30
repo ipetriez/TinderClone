@@ -59,11 +59,27 @@ struct CardView: View {
     private func onDragEnded(_ value: DragGesture.Value) {
         let width = value.translation.width
         if abs(width) <= abs(Utilities.screenCutOff) {
-            xOffset = 0
-            degrees = 0
-        } else {
-            
+            returnToCenter()
+        } else if width >= Utilities.screenCutOff {
+            swipeRight()
+        } else if width < 0 {
+            swipeLeft()
         }
+    }
+    
+    private func swipeRight() {
+        xOffset = 500
+        degrees = 12
+    }
+    
+    private func swipeLeft() {
+        xOffset = -500
+        degrees = -12
+    }
+    
+    private func returnToCenter() {
+        xOffset = 0
+        degrees = 0
     }
 }
 
