@@ -8,6 +8,7 @@
 import Foundation
 internal import Combine
 
+@MainActor
 final class CardsManager: ObservableObject {
     
     @Published var cards = [TinderUser]()
@@ -20,5 +21,10 @@ final class CardsManager: ObservableObject {
         Task {
             cards = MockData.users
         }
+    }
+    
+    func remove(_ card: TinderUser) {
+        guard let index = cards.firstIndex(where: { $0.id == card.id }) else { return }
+        cards.remove(at: index)
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     let user: TinderUser
+    @ObservedObject var manager: CardsManager
     @State private var xOffset: CGFloat = 0
     @State private var degrees: Double = 0
     @State private var currentImageIndex = 0
@@ -70,11 +71,13 @@ struct CardView: View {
     private func swipeRight() {
         xOffset = 500
         degrees = 12
+        manager.remove(user)
     }
     
     private func swipeLeft() {
         xOffset = -500
         degrees = -12
+        manager.remove(user)
     }
     
     private func returnToCenter() {
@@ -84,5 +87,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(user: MockData.users[0])
+    CardView(user: MockData.users[4], manager: CardsManager())
 }

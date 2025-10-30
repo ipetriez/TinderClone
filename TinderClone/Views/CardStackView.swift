@@ -9,12 +9,12 @@ import SwiftUI
 
 struct CardStackView: View {
     
-    @StateObject var cardsManager = CardsManager()
+    @State var cardsManager = CardsManager()
     
     var body: some View {
         ZStack {
             ForEach(cardsManager.cards) { card in
-                CardView(user: card)
+                CardView(user: card, manager: cardsManager)
             }
         }
     }
