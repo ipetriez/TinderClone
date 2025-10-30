@@ -8,31 +8,31 @@
 import SwiftUI
 
 struct CardView: View {
+    let user: TinderUser
     @State private var xOffset: CGFloat = 0
     @State private var degrees: Double = 0
     @State private var currentImageIndex = 0
-    @State private var photos: [String] = ["MF_1", "MF_2", "MF_3"]
     
     var body: some View {
         ZStack(alignment: .bottom) {
             ZStack(alignment: .top) {
-                Image(photos[currentImageIndex])
+                Image(user.profileImageURLs[currentImageIndex])
                     .resizable()
                     .scaledToFill()
                     .overlay(
                         ImageScrollOverlay(
-                            photosCount: photos.count,
+                            photosCount: user.profileImageURLs.count,
                             currentImageIndex: $currentImageIndex
                         )
                     )
                 
-                CardImageIndicatorView(imageCount: photos.count, currentImageIndex: currentImageIndex)
+                CardImageIndicatorView(imageCount: user.profileImageURLs.count, currentImageIndex: currentImageIndex)
                 
                 SwipeActionIndicatorView(xOffset: $xOffset)
                     .frame(width: Utilities.cardWidth)
             }
             
-            UserInfoView()
+            UserInfoView(name: user.fullName, age: user.age)
                 .frame(width: Utilities.cardWidth)
                 .padding(.horizontal)
         }
@@ -84,5 +84,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView()
+    CardView(user: MockData.users[0])
 }

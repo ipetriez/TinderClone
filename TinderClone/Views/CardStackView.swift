@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct CardStackView: View {
+    
+    @StateObject var cardsManager = CardsManager()
+    
     var body: some View {
         ZStack {
-            ForEach(0 ..< 10) { card in
-                CardView()
+            ForEach(cardsManager.cards) { card in
+                CardView(user: card)
             }
         }
     }
