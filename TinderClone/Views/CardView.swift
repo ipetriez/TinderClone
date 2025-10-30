@@ -26,6 +26,8 @@ struct CardView: View {
                         )
                     )
                 
+                CardImageIndicatorView(imageCount: photos.count, currentImageIndex: currentImageIndex)
+                
                 SwipeActionIndicatorView(xOffset: $xOffset)
                     .frame(width: Utilities.cardWidth)
             }
