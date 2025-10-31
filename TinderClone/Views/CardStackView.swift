@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CardStackView: View {
     
-    @State var cardsManager = CardsManager()
+    @StateObject var cardsManager = CardsManager()
     
     var body: some View {
         ZStack {

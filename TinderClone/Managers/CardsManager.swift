@@ -14,13 +14,11 @@ final class CardsManager: ObservableObject {
     @Published var cards = [TinderUser]()
     
     init() {
-        Task { await fetchCards() }
+        fetchCards()
     }
     
-    func fetchCards() async {
-        Task {
-            cards = MockData.users
-        }
+    func fetchCards() {
+        cards = MockData.users
     }
     
     func remove(_ card: TinderUser) {
