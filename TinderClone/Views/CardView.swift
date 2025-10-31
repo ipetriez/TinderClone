@@ -69,20 +69,28 @@ struct CardView: View {
     }
     
     private func swipeRight() {
-        xOffset = 500
-        degrees = 12
-        manager.remove(user)
+        withAnimation {
+            xOffset = 500
+            degrees = 12
+        } completion: {
+            manager.remove(user)
+        }
     }
     
     private func swipeLeft() {
-        xOffset = -500
-        degrees = -12
-        manager.remove(user)
+        withAnimation {
+            xOffset = -500
+            degrees = -12
+        } completion: {
+            manager.remove(user)
+        }
     }
     
     private func returnToCenter() {
-        xOffset = 0
-        degrees = 0
+        withAnimation {
+            xOffset = 0
+            degrees = 0
+        }
     }
 }
 
