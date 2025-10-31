@@ -12,6 +12,7 @@ internal import Combine
 final class CardsManager: ObservableObject {
     
     @Published var cards = [TinderUser]()
+    @Published var buttonSwipeAction: SwipeAction?
     
     init() {
         fetchCards()

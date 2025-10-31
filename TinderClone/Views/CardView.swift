@@ -37,6 +37,7 @@ struct CardView: View {
                 .frame(width: Utilities.cardWidth)
                 .padding(.horizontal)
         }
+        .onReceive(manager.$buttonSwipeAction) { onReceive($0) }
         .frame(width: Utilities.cardWidth, height: Utilities.cardHeight)
         .clipShape(.rect(cornerRadius: 10))
         .offset(x: xOffset)
@@ -90,6 +91,19 @@ struct CardView: View {
         withAnimation {
             xOffset = 0
             degrees = 0
+        }
+    }
+    
+    private func onReceive(_ action: SwipeAction?) {
+        guard let action else { return }
+        let topCard = manager.cards.last
+        if topCard == user {
+            switch action {
+            case .like:
+                swipeRight()
+            case .reject:
+                swipeLeft()
+            }
         }
     }
 }

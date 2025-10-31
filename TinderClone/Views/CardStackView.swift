@@ -12,9 +12,16 @@ struct CardStackView: View {
     @StateObject var cardsManager = CardsManager()
     
     var body: some View {
-        ZStack {
-            ForEach(cardsManager.cards) { card in
-                CardView(user: card, manager: cardsManager)
+        VStack {
+            ZStack {
+                ForEach(cardsManager.cards) { card in
+                    CardView(user: card, manager: cardsManager)
+                }
+            }
+            
+            if !cardsManager.cards.isEmpty {
+                SwipeActionButtonsView(manager: cardsManager)
+                    .padding(.top)
             }
         }
     }
