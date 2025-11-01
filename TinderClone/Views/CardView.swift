@@ -13,6 +13,7 @@ struct CardView: View {
     @State private var xOffset: CGFloat = 0
     @State private var degrees: Double = 0
     @State private var currentImageIndex = 0
+    @State private var showProfile = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -33,9 +34,16 @@ struct CardView: View {
                     .frame(width: Utilities.cardWidth)
             }
             
-            UserInfoView(name: user.fullName, age: user.age)
+            UserInfoView(
+                showProfile: $showProfile,
+                name: user.fullName,
+                age: user.age
+            )
                 .frame(width: Utilities.cardWidth)
                 .padding(.horizontal)
+        }
+        .fullScreenCover(isPresented: $showProfile) {
+            Text("User profile")
         }
         .onReceive(manager.$buttonSwipeAction) { onReceive($0) }
         .frame(width: Utilities.cardWidth, height: Utilities.cardHeight)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UserInfoView: View {
+    @Binding var showProfile: Bool
     let name: String
     let age: Int
     
@@ -24,7 +25,7 @@ struct UserInfoView: View {
                 
                 Spacer()
                 
-                Button(action: showProfile) {
+                Button(action: showProfileTapped) {
                     Image(systemName: "arrow.up.circle")
                         .fontWeight(.bold)
                         .imageScale(.large)
@@ -42,11 +43,11 @@ struct UserInfoView: View {
         }
     }
     
-    func showProfile() {
-        print("Debug: Show profile tapped")
+    func showProfileTapped() {
+        showProfile.toggle()
     }
 }
 
 #Preview {
-    UserInfoView(name: "D", age: 20)
+    UserInfoView(showProfile: .constant(false), name: "D", age: 20)
 }
