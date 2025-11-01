@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
-    let user: TinderUser
+    let user: ShminderUser
     @ObservedObject var manager: CardsManager
     @State private var xOffset: CGFloat = 0
     @State private var degrees: Double = 0
@@ -43,7 +43,7 @@ struct CardView: View {
                 .padding(.horizontal)
         }
         .fullScreenCover(isPresented: $showProfile) {
-            Text("User profile")
+            UserProfileView(currentImageIndex: $currentImageIndex, user: user)
         }
         .onReceive(manager.$buttonSwipeAction) { onReceive($0) }
         .frame(width: Utilities.cardWidth, height: Utilities.cardHeight)

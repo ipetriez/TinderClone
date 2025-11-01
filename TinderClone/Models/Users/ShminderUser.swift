@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TinderUser: Identifiable, Equatable {
+struct ShminderUser: Identifiable, Equatable {
     let id: String
     let fullName: String
     var age: Int

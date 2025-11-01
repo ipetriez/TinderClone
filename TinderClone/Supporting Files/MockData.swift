@@ -8,7 +8,7 @@
 import Foundation
 
 struct MockData {
-    static let users: [TinderUser] = [
+    static let users: [ShminderUser] = [
         .init(id: UUID().uuidString, fullName: "Megan Fox", age: 25, profileImageURLs: ["MF_1", "MF_2", "MF_3"]),
         .init(id: UUID().uuidString, fullName: "Jean Shrimpton", age: 28, profileImageURLs: ["MF_12", "MF_13", "MF_11"]),
         .init(id: UUID().uuidString, fullName: "Imaan Hammam", age: 26, profileImageURLs: ["MF_23", "MF_21", "MF_22"]),
