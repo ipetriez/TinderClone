@@ -9,49 +9,58 @@ import SwiftUI
 
 struct CurrentUserProfileView: View {
     let user: ShminderUser
+    @State private var isEditing: Bool = false
     
     var body: some View {
-        List {
-            CurrentUserProfileHeaderView(user: user)
-            
-            Section("Account Information") {
-                HStack {
-                    Text("Name")
-                    Spacer()
-                    Text("\(user.fullName)")
+        NavigationStack {
+            List {
+                CurrentUserProfileHeaderView(user: user)
+                    .onTapGesture { isEditing.toggle() }
+                
+                Section("Account Information") {
+                    HStack {
+                        Text("Name")
+                        Spacer()
+                        Text("\(user.fullName)")
+                    }
+                    
+                    HStack {
+                        Text("Email")
+                        Spacer()
+                        Text("test@email.com")
+                    }
                 }
                 
-                HStack {
-                    Text("Email")
-                    Spacer()
-                    Text("test@email.com")
+                Section("Legal") {
+                    HStack {
+                        Text("Terms of Service")
+                        Spacer()
+                        Text("\(user.fullName)")
+                    }
+                }
+                
+                Section {
+                    Button {
+                        print("Debug: Logout tapped")
+                    } label: {
+                        Text("Logout")
+                            .foregroundStyle(.red)
+                    }
+                }
+                
+                Section {
+                    Button {
+                        print("Debug: Delete tapped")
+                    } label: {
+                        Text("Delete Account")
+                            .foregroundStyle(.red)
+                    }
                 }
             }
-            
-            Section("Legal") {
-                HStack {
-                    Text("Terms of Service")
-                    Spacer()
-                    Text("\(user.fullName)")
-                }
-            }
-            
-            Section {
-                Button {
-                    print("Debug: Logout tapped")
-                } label: {
-                    Text("Logout")
-                        .foregroundStyle(.red)
-                }
-            }
-            
-            Section {
-                Button {
-                    print("Debug: Delete tapped")
-                } label: {
-                    Text("Delete Account")
-                        .foregroundStyle(.red)
-                }
+            .navigationTitle("Profile")
+            .navigationBarTitleDisplayMode(.inline)
+            .fullScreenCover(isPresented: $isEditing) {
+                EditProfileView(user: user)
             }
         }
     }
