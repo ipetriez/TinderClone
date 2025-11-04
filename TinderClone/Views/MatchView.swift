@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MatchView: View {
     @Binding var show: Bool
+    @EnvironmentObject var matchManager: MatchManager
     
     var body: some View {
         ZStack {
@@ -20,7 +21,7 @@ struct MatchView: View {
                 VStack {
                     Text("It's a match")
                         .font(.largeTitle)
-                    Text("You and Kelly have liked each other")
+                    Text("You and \(matchManager.matchedUser?.fullName ?? "") have liked each other")
                 }
                 .foregroundStyle(.white)
                 
@@ -36,7 +37,7 @@ struct MatchView: View {
                                 .shadow(radius: 10)
                         }
                     
-                    Image(MockData.users[1].profileImageURLs[0])
+                    Image(matchManager.matchedUser?.profileImageURLs[0] ?? "")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 120, height: 120)
@@ -80,4 +81,5 @@ struct MatchView: View {
 
 #Preview {
     MatchView(show: .constant(true))
+        .environmentObject(MatchManager())
 }

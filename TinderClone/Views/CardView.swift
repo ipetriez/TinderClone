@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     let user: ShminderUser
+    @EnvironmentObject var matchManager: MatchManager
     @ObservedObject var manager: CardsManager
     @State private var xOffset: CGFloat = 0
     @State private var degrees: Double = 0
@@ -83,6 +84,7 @@ struct CardView: View {
             degrees = 12
         } completion: {
             manager.remove(user)
+            matchManager.checkForMatch(with: user)
         }
     }
     

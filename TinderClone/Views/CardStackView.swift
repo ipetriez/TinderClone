@@ -9,32 +9,42 @@ import SwiftUI
 
 struct CardStackView: View {
     
-    @StateObject var cardsManager = CardsManager()
+    @EnvironmentObject var cardsManager: CardsManager
+    @EnvironmentObject var matchManager: MatchManager
     
     var body: some View {
-        VStack {
+        NavigationStack {
             ZStack {
-                ForEach(cardsManager.cards) { card in
-                    CardView(user: card, manager: cardsManager)
+                VStack(spacing: 16) {
+                    ZStack {
+                        ForEach(cardsManager.cards) { card in
+                            CardView(user: card, manager: cardsManager)
+                                .environmentObject(matchManager)
+                        }
+                    }
+                    
+                    if !cardsManager.cards.isEmpty {
+                        SwipeActionButtonsView(manager: cardsManager)
+                    }
+                }
+                .blur(radius: matchManager.isMatchFound ? 20 : 0)
+                
+                if matchManager.isMatchFound {
+                    MatchView(show: $matchManager.isMatchFound)
+                        .environmentObject(matchManager)
                 }
             }
-            
-            if !cardsManager.cards.isEmpty {
-                SwipeActionButtonsView(manager: cardsManager)
-                    .padding(.top)
-            }
-        }
-        .padding(.bottom)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 0) {
-                    Image(systemName: "flame.fill")
-                        .foregroundStyle(.red)
-                    Text("Shminder")
-                        .frame(width: 100)
-                        .foregroundStyle(.cyan)
-                        .fontWeight(.heavy)
-                        .font(.callout)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 0) {
+                        Image(systemName: "flame.fill")
+                            .foregroundStyle(.red)
+                        Text("Shminder")
+                            .frame(width: 100)
+                            .foregroundStyle(.cyan)
+                            .fontWeight(.heavy)
+                            .font(.callout)
+                    }
                 }
             }
         }
@@ -43,4 +53,6 @@ struct CardStackView: View {
 
 #Preview {
     CardStackView()
+        .environmentObject(MatchManager())
+        .environmentObject(CardsManager())
 }

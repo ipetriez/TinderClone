@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @StateObject var matchManager = MatchManager()
+    @StateObject var cardsManager = CardsManager()
+    
     var body: some View {
         TabView {
             CardStackView()
+                .environmentObject(matchManager)
+                .environmentObject(cardsManager)
                 .tabItem { Image(systemName: "flame") }
                 .tag(0)
             Text("Search View")
