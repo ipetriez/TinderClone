@@ -34,6 +34,7 @@ struct CardStackView: View {
                         .environmentObject(matchManager)
                 }
             }
+            .animation(.easeInOut, value: matchManager.isMatchFound)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack(spacing: 0) {
